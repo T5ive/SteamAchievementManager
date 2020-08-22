@@ -53,8 +53,8 @@ namespace SAM.Game
         // ReSharper restore PrivateFieldCanBeConvertedToLocalVariable
 
         //private API.Callback<APITypes.UserStatsStored> UserStatsStoredCallback;
-
-        public Manager(long gameId, API.Client client)
+        private string Language;
+        public Manager(long gameId, API.Client client, string language = null)
         {
             this.InitializeComponent();
 
@@ -99,6 +99,8 @@ namespace SAM.Game
             {
                 base.Text += " | " + this._GameId.ToString(CultureInfo.InvariantCulture);
             }
+
+            Language = language;
 
             this._UserStatsReceivedCallback = client.CreateAndRegisterCallback<API.Callbacks.UserStatsReceived>();
             this._UserStatsReceivedCallback.OnRun += this.OnUserStatsReceived;
@@ -250,7 +252,8 @@ namespace SAM.Game
                 return false;
             }
 
-            var currentLanguage = this._SteamClient.SteamApps008.GetCurrentGameLanguage();
+            var currentLanguage = string.IsNullOrWhiteSpace(Language) ? _SteamClient.SteamApps008.GetCurrentGameLanguage() : Language;
+            
             //var currentLanguage = "german";
 
             this._AchievementDefinitions.Clear();

@@ -33,7 +33,7 @@ namespace SAM.Game
         public static void Main(string[] args)
         {
             long appId;
-
+            var language = "";
             if (args.Length == 0)
             {
                 Process.Start("SAM.Picker.exe");
@@ -49,6 +49,13 @@ namespace SAM.Game
                     MessageBoxIcon.Error);
                 return;
             }
+            if (args.Length > 1)
+            {
+                language = args[1];
+                language = language.ToLower();
+            }
+
+            
 
             if (API.Steam.GetInstallPath() == Application.StartupPath)
             {
@@ -110,7 +117,7 @@ namespace SAM.Game
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Manager(appId, client));
+                Application.Run(new Manager(appId, client, language));
             }
         }
     }

@@ -386,7 +386,8 @@ namespace SAM.Picker
 
             try
             {
-                Process.Start("SAM.Game.exe", info.Id.ToString(CultureInfo.InvariantCulture));
+                var language = boxLanguage.Text == "Language" ? null : boxLanguage.Text;
+                Process.Start("SAM.Game.exe", $"{info.Id.ToString(CultureInfo.InvariantCulture)} {language}");
             }
             catch (Win32Exception)
             {

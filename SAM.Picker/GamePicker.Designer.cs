@@ -43,6 +43,7 @@
             this._FilterDemosMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._FilterModsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._FilterJunkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boxLanguage = new System.Windows.Forms.ToolStripComboBox();
             this._GameListView = new SAM.Picker.DoubleBufferedListView();
             this._PickerStatusStrip = new System.Windows.Forms.StatusStrip();
             this._PickerStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -84,7 +85,8 @@
             this._AddGameTextBox,
             this._AddGameButton,
             _ToolStripSeparator2,
-            this._FilterDropDownButton});
+            this._FilterDropDownButton,
+            this.boxLanguage});
             this._PickerToolStrip.Location = new System.Drawing.Point(0, 0);
             this._PickerToolStrip.Name = "_PickerToolStrip";
             this._PickerToolStrip.Size = new System.Drawing.Size(742, 25);
@@ -102,6 +104,7 @@
             // 
             // _AddGameTextBox
             // 
+            this._AddGameTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this._AddGameTextBox.Name = "_AddGameTextBox";
             this._AddGameTextBox.Size = new System.Drawing.Size(100, 25);
             // 
@@ -162,11 +165,21 @@
             this._FilterJunkMenuItem.Text = "Show &junk";
             this._FilterJunkMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
+            // boxLanguage
+            // 
+            this.boxLanguage.Items.AddRange(new object[] {
+            "English",
+            "Thai"});
+            this.boxLanguage.Name = "boxLanguage";
+            this.boxLanguage.Size = new System.Drawing.Size(121, 25);
+            this.boxLanguage.Text = "Languages";
+            // 
             // _GameListView
             // 
             this._GameListView.BackColor = System.Drawing.Color.Black;
             this._GameListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._GameListView.ForeColor = System.Drawing.Color.White;
+            this._GameListView.HideSelection = false;
             this._GameListView.LargeImageList = this._LogoImageList;
             this._GameListView.Location = new System.Drawing.Point(0, 25);
             this._GameListView.MultiSelect = false;
@@ -260,6 +273,7 @@
         private System.Windows.Forms.ToolStripStatusLabel _PickerStatusLabel;
         private System.ComponentModel.BackgroundWorker _LogoWorker;
         private System.ComponentModel.BackgroundWorker _ListWorker;
-	}
+        private System.Windows.Forms.ToolStripComboBox boxLanguage;
+    }
 }
 
