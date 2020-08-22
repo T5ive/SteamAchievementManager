@@ -53,7 +53,7 @@ namespace SAM.Game
         // ReSharper restore PrivateFieldCanBeConvertedToLocalVariable
 
         //private API.Callback<APITypes.UserStatsStored> UserStatsStoredCallback;
-        private string Language;
+        private readonly string _Language;
         public Manager(long gameId, API.Client client, string language = null)
         {
             this.InitializeComponent();
@@ -100,7 +100,8 @@ namespace SAM.Game
                 base.Text += " | " + this._GameId.ToString(CultureInfo.InvariantCulture);
             }
 
-            Language = language;
+            notifyIcon1.Text = name;
+            _Language = language;
 
             this._UserStatsReceivedCallback = client.CreateAndRegisterCallback<API.Callbacks.UserStatsReceived>();
             this._UserStatsReceivedCallback.OnRun += this.OnUserStatsReceived;
@@ -252,7 +253,7 @@ namespace SAM.Game
                 return false;
             }
 
-            var currentLanguage = string.IsNullOrWhiteSpace(Language) ? _SteamClient.SteamApps008.GetCurrentGameLanguage() : Language;
+            var currentLanguage = string.IsNullOrWhiteSpace(_Language) ? _SteamClient.SteamApps008.GetCurrentGameLanguage() : _Language;
             
             //var currentLanguage = "german";
 
@@ -863,6 +864,61 @@ namespace SAM.Game
                     MessageBoxIcon.Error);
                 e.NewValue = e.CurrentValue;
             }
+        }
+
+        private void Manager_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!exitToTrayToolStripMenuItem.Checked) return;
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                WindowState = FormWindowState.Minimized;
+            }
+        }
+        private void Manager_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                if (!minimizeToTrayToolStripMenuItem.Checked) return;
+                MinimizedTray();
+            }
+            else if (WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized) 
+                MaximizedFromTray();
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
+            MaximizedFromTray();
+        }
+
+        private void showToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
+            MaximizedFromTray();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void MinimizedTray()
+        {
+            ShowInTaskbar = false;
+            notifyIcon1.Visible = true;
+            notifyIcon1.BalloonTipText = "Minimized";
+            notifyIcon1.BalloonTipTitle = "Your Application is Running in BackGround";
+            notifyIcon1.ShowBalloonTip(500);
+
+        }
+        private void MaximizedFromTray()
+        {
+            ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
+            notifyIcon1.BalloonTipText = "Maximized";
+            notifyIcon1.BalloonTipTitle = "Application is Running in Foreground";
+            notifyIcon1.ShowBalloonTip(500);
         }
     }
 }
