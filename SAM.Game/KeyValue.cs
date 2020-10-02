@@ -41,12 +41,7 @@ namespace SAM.Game
         {
             get
             {
-                if (Children == null)
-                {
-                    return _Invalid;
-                }
-
-                var child = Children.SingleOrDefault(
+                var child = Children?.SingleOrDefault(
                     c => string.Compare(c.Name, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                 
                 if (child == null)
