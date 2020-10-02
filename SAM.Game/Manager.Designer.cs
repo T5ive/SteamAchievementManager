@@ -86,7 +86,7 @@
             this.toolStripDropDownButton1});
             this._MainToolStrip.Location = new System.Drawing.Point(0, 0);
             this._MainToolStrip.Name = "_MainToolStrip";
-            this._MainToolStrip.Size = new System.Drawing.Size(632, 25);
+            this._MainToolStrip.Size = new System.Drawing.Size(624, 25);
             this._MainToolStrip.TabIndex = 1;
             // 
             // _StoreButton
@@ -138,7 +138,7 @@
             this.minimizeToTrayToolStripMenuItem.Checked = true;
             this.minimizeToTrayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.minimizeToTrayToolStripMenuItem.Name = "minimizeToTrayToolStripMenuItem";
-            this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.minimizeToTrayToolStripMenuItem.Text = "Minimize to tray";
             // 
             // exitToTrayToolStripMenuItem
@@ -146,7 +146,7 @@
             this.exitToTrayToolStripMenuItem.Checked = true;
             this.exitToTrayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.exitToTrayToolStripMenuItem.Name = "exitToTrayToolStripMenuItem";
-            this.exitToTrayToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.exitToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToTrayToolStripMenuItem.Text = "Exit to tray";
             // 
             // _AchievementImageList
@@ -161,9 +161,9 @@
             this._CountryStatusLabel,
             this._GameStatusLabel,
             this._DownloadStatusLabel});
-            this._MainStatusStrip.Location = new System.Drawing.Point(0, 370);
+            this._MainStatusStrip.Location = new System.Drawing.Point(0, 439);
             this._MainStatusStrip.Name = "_MainStatusStrip";
-            this._MainStatusStrip.Size = new System.Drawing.Size(632, 22);
+            this._MainStatusStrip.Size = new System.Drawing.Size(624, 22);
             this._MainStatusStrip.TabIndex = 4;
             this._MainStatusStrip.Text = "statusStrip1";
             // 
@@ -175,7 +175,7 @@
             // _GameStatusLabel
             // 
             this._GameStatusLabel.Name = "_GameStatusLabel";
-            this._GameStatusLabel.Size = new System.Drawing.Size(617, 17);
+            this._GameStatusLabel.Size = new System.Drawing.Size(609, 17);
             this._GameStatusLabel.Spring = true;
             this._GameStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -202,7 +202,7 @@
             this._MainTabControl.Location = new System.Drawing.Point(8, 33);
             this._MainTabControl.Name = "_MainTabControl";
             this._MainTabControl.SelectedIndex = 0;
-            this._MainTabControl.Size = new System.Drawing.Size(616, 334);
+            this._MainTabControl.Size = new System.Drawing.Size(608, 403);
             this._MainTabControl.TabIndex = 5;
             // 
             // _AchievementsTabPage
@@ -212,7 +212,7 @@
             this._AchievementsTabPage.Location = new System.Drawing.Point(4, 22);
             this._AchievementsTabPage.Name = "_AchievementsTabPage";
             this._AchievementsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this._AchievementsTabPage.Size = new System.Drawing.Size(608, 308);
+            this._AchievementsTabPage.Size = new System.Drawing.Size(600, 377);
             this._AchievementsTabPage.TabIndex = 0;
             this._AchievementsTabPage.Text = "Achievements";
             this._AchievementsTabPage.UseVisualStyleBackColor = true;
@@ -234,7 +234,7 @@
             this._AchievementListView.LargeImageList = this._AchievementImageList;
             this._AchievementListView.Location = new System.Drawing.Point(3, 28);
             this._AchievementListView.Name = "_AchievementListView";
-            this._AchievementListView.Size = new System.Drawing.Size(602, 277);
+            this._AchievementListView.Size = new System.Drawing.Size(594, 346);
             this._AchievementListView.SmallImageList = this._AchievementImageList;
             this._AchievementListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this._AchievementListView.TabIndex = 4;
@@ -260,7 +260,7 @@
             this._UnlockAllButton});
             this._AchievementsToolStrip.Location = new System.Drawing.Point(3, 3);
             this._AchievementsToolStrip.Name = "_AchievementsToolStrip";
-            this._AchievementsToolStrip.Size = new System.Drawing.Size(602, 25);
+            this._AchievementsToolStrip.Size = new System.Drawing.Size(594, 25);
             this._AchievementsToolStrip.TabIndex = 5;
             // 
             // _LockAllButton
@@ -340,7 +340,6 @@
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon";
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
@@ -370,7 +369,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 392);
+            this.ClientSize = new System.Drawing.Size(624, 461);
             this.Controls.Add(this._MainToolStrip);
             this.Controls.Add(this._MainTabControl);
             this.Controls.Add(this._MainStatusStrip);
