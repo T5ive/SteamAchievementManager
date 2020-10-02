@@ -75,6 +75,7 @@ namespace SAM.Picker
             this._AppDataChangedCallback.OnRun += this.OnAppDataChanged;
 
             this.AddGames();
+            boxLanguage.SelectedIndex = 1;
         }
 
         private void OnAppDataChanged(APITypes.AppDataChanged param)
