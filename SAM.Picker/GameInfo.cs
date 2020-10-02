@@ -34,19 +34,19 @@ namespace SAM.Picker
 
         public string Name
         {
-            get { return this._Name; }
-            set { this._Name = value ?? "App " + this.Id.ToString(CultureInfo.InvariantCulture); }
+            get => _Name;
+            set => _Name = value ?? "App " + Id.ToString(CultureInfo.InvariantCulture);
         }
 
         public string Logo;
 
         public GameInfo(uint id, string type)
         {
-            this.Id = id;
-            this.Type = type;
-            this.Name = null;
-            this.ImageIndex = 0;
-            this.Logo = null;
+            Id = id;
+            Type = type;
+            Name = null;
+            ImageIndex = 0;
+            Logo = null;
         }
     }
 }

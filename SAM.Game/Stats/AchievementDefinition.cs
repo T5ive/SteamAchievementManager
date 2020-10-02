@@ -37,8 +37,8 @@ namespace SAM.Game.Stats
             return string.Format(
                 System.Globalization.CultureInfo.CurrentCulture,
                 "{0}: {1}",
-                this.Name ?? this.Id ?? base.ToString(),
-                this.Permission);
+                Name ?? Id ?? base.ToString(),
+                Permission);
         }
     }
 }

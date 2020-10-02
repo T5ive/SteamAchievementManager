@@ -31,8 +31,8 @@ namespace SAM.Picker
 
         public LogoInfo(uint id, Bitmap bitmap)
         {
-            this.Id = id;
-            this.Bitmap = bitmap;
+            Id = id;
+            Bitmap = bitmap;
         }
     }
 }

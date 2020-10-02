@@ -35,18 +35,18 @@ namespace SAM.Game
         public object Value;
         public bool Valid;
 
-        public List<KeyValue> Children = null;
+        public List<KeyValue> Children;
 
         public KeyValue this[string key]
         {
             get
             {
-                if (this.Children == null)
+                if (Children == null)
                 {
                     return _Invalid;
                 }
 
-                var child = this.Children.SingleOrDefault(
+                var child = Children.SingleOrDefault(
                     c => string.Compare(c.Name, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                 
                 if (child == null)
@@ -60,33 +60,32 @@ namespace SAM.Game
 
         public string AsString(string defaultValue)
         {
-            if (this.Valid == false)
+            if (Valid == false)
             {
                 return defaultValue;
             }
 
-            if (this.Value == null)
+            if (Value == null)
             {
                 return defaultValue;
             }
 
-            return this.Value.ToString();
+            return Value.ToString();
         }
 
         public int AsInteger(int defaultValue)
         {
-            if (this.Valid == false)
+            if (Valid == false)
             {
                 return defaultValue;
             }
 
-            switch (this.Type)
+            switch (Type)
             {
                 case KeyValueType.String:
                 case KeyValueType.WideString:
                 {
-                    int value;
-                    if (int.TryParse((string)this.Value, out value) == false)
+                    if (int.TryParse((string)Value, out var value) == false)
                     {
                         return defaultValue;
                     }
@@ -95,17 +94,17 @@ namespace SAM.Game
 
                 case KeyValueType.Int32:
                 {
-                    return (int)this.Value;
+                    return (int)Value;
                 }
 
                 case KeyValueType.Float32:
                 {
-                    return (int)((float)this.Value);
+                    return (int)((float)Value);
                 }
 
                 case KeyValueType.UInt64:
                 {
-                    return (int)((ulong)this.Value & 0xFFFFFFFF);
+                    return (int)((ulong)Value & 0xFFFFFFFF);
                 }
             }
 
@@ -114,18 +113,17 @@ namespace SAM.Game
 
         public float AsFloat(float defaultValue)
         {
-            if (this.Valid == false)
+            if (Valid == false)
             {
                 return defaultValue;
             }
 
-            switch (this.Type)
+            switch (Type)
             {
                 case KeyValueType.String:
                 case KeyValueType.WideString:
                 {
-                    float value;
-                    if (float.TryParse((string)this.Value, out value) == false)
+                    if (float.TryParse((string)Value, out var value) == false)
                     {
                         return defaultValue;
                     }
@@ -134,17 +132,17 @@ namespace SAM.Game
 
                 case KeyValueType.Int32:
                 {
-                    return (int)this.Value;
+                    return (int)Value;
                 }
 
                 case KeyValueType.Float32:
                 {
-                    return (float)this.Value;
+                    return (float)Value;
                 }
 
                 case KeyValueType.UInt64:
                 {
-                    return (ulong)this.Value & 0xFFFFFFFF;
+                    return (ulong)Value & 0xFFFFFFFF;
                 }
             }
 
@@ -153,18 +151,17 @@ namespace SAM.Game
 
         public bool AsBoolean(bool defaultValue)
         {
-            if (this.Valid == false)
+            if (Valid == false)
             {
                 return defaultValue;
             }
 
-            switch (this.Type)
+            switch (Type)
             {
                 case KeyValueType.String:
                 case KeyValueType.WideString:
                 {
-                    int value;
-                    if (int.TryParse((string)this.Value, out value) == false)
+                    if (int.TryParse((string)Value, out var value) == false)
                     {
                         return defaultValue;
                     }
@@ -173,17 +170,17 @@ namespace SAM.Game
 
                 case KeyValueType.Int32:
                 {
-                    return ((int)this.Value) != 0;
+                    return ((int)Value) != 0;
                 }
 
                 case KeyValueType.Float32:
                 {
-                    return ((int)((float)this.Value)) != 0;
+                    return ((int)((float)Value)) != 0;
                 }
 
                 case KeyValueType.UInt64:
                 {
-                    return ((ulong)this.Value) != 0;
+                    return ((ulong)Value) != 0;
                 }
             }
 
@@ -192,21 +189,21 @@ namespace SAM.Game
 
         public override string ToString()
         {
-            if (this.Valid == false)
+            if (Valid == false)
             {
                 return "<invalid>";
             }
 
-            if (this.Type == KeyValueType.None)
+            if (Type == KeyValueType.None)
             {
-                return this.Name;
+                return Name;
             }
 
             return string.Format(
                 System.Globalization.CultureInfo.CurrentCulture,
                 "{0} = {1}",
-                this.Name,
-                this.Value);
+                Name,
+                Value);
         }
 
         public static KeyValue LoadAsBinary(string path)
@@ -236,7 +233,7 @@ namespace SAM.Game
 
         public bool ReadAsBinary(Stream input)
         {
-            this.Children = new List<KeyValue>();
+            Children = new List<KeyValue>();
 
             try
             {
@@ -321,10 +318,10 @@ namespace SAM.Game
                         throw new FormatException();
                     }
 
-                    this.Children.Add(current);
+                    Children.Add(current);
                 }
 
-                this.Valid = true;
+                Valid = true;
                 return input.Position == input.Length;
             }
             catch (Exception)

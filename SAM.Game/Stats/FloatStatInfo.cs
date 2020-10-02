@@ -29,24 +29,21 @@ namespace SAM.Game.Stats
 
         public override object Value
         {
-            get { return this.FloatValue; }
+            get => FloatValue;
             set
             {
                 var f = float.Parse((string)value, System.Globalization.CultureInfo.CurrentCulture);
 
-                if ((this.Permission & 2) != 0 &&
-                    this.FloatValue.Equals(f) == false)
+                if ((Permission & 2) != 0 &&
+                    FloatValue.Equals(f) == false)
                 {
                     throw new StatIsProtectedException();
                 }
 
-                this.FloatValue = f;
+                FloatValue = f;
             }
         }
 
-        public override bool IsModified
-        {
-            get { return this.FloatValue.Equals(this.OriginalValue) == false; }
-        }
+        public override bool IsModified => FloatValue.Equals(OriginalValue) == false;
     }
 }
