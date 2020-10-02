@@ -54,10 +54,13 @@ namespace SAM.Game
 
         //private API.Callback<APITypes.UserStatsStored> UserStatsStoredCallback;
         private readonly string _Language;
+
+        private bool _firstLoad;
         public Manager(long gameId, API.Client client, string language = null)
         {
             InitializeComponent();
 
+            if(_firstLoad) return;
             _MainTabControl.SelectedTab = _AchievementsTabPage;
             //this.statisticsList.Enabled = this.checkBox1.Checked;
 
@@ -108,6 +111,7 @@ namespace SAM.Game
 
             //this.UserStatsStoredCallback = new API.Callback(1102, new API.Callback.CallbackFunction(this.OnUserStatsStored));
             RefreshStats();
+            _firstLoad = true;
         }
 
         private void AddAchievementIcon(Stats.AchievementInfo info, Image icon)
@@ -447,8 +451,7 @@ namespace SAM.Game
                     continue;
                 }
 
-                bool isAchieved;
-                if (_SteamClient.SteamUserStats.GetAchievementState(def.Id, out isAchieved) == false)
+                if (_SteamClient.SteamUserStats.GetAchievementState(def.Id, out var isAchieved) == false)
                 {
                     continue;
                 }
