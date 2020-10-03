@@ -958,15 +958,10 @@ namespace SAM.Game
                 minimizeToTrayToolStripMenuItem.Checked = true;
             }
         }
-
-        private void _DisplayLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void _DisplayLockedOnlyButton_Click(object sender, EventArgs e)
         {
-            if (((ToolStripButton) sender).Checked)
+            if (_DisplayLockedOnlyButton.Checked)
             {
                 _DisplayLockedOnlyButton.ForeColor = Color.RoyalBlue;
 
@@ -977,12 +972,13 @@ namespace SAM.Game
             {
                 _DisplayLockedOnlyButton.ForeColor = Color.Black;
             }
+
             GetAchievements();
         }
 
         private void _DisplayUnlockedOnlyButton_Click(object sender, EventArgs e)
         {
-            if (((ToolStripButton) sender).Checked)
+            if (_DisplayUnlockedOnlyButton.Checked)
             {
                 _DisplayUnlockedOnlyButton.ForeColor = Color.RoyalBlue;
 
@@ -993,6 +989,7 @@ namespace SAM.Game
             {
                 _DisplayUnlockedOnlyButton.ForeColor = Color.Black;
             }
+
             GetAchievements();
         }
 

@@ -29,6 +29,8 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ToolStripSeparator _ToolStripSeparator1;
+            System.Windows.Forms.ToolStripSeparator _ToolStripSeparator2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GamePicker));
             this._LogoImageList = new System.Windows.Forms.ImageList(this.components);
             this._CallbackTimer = new System.Windows.Forms.Timer(this.components);
@@ -42,47 +44,21 @@
             this._FilterModsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._FilterJunkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boxLanguage = new System.Windows.Forms.ToolStripComboBox();
+            this._ToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this._FindGamesLabel = new System.Windows.Forms.ToolStripLabel();
+            this._SearchGameTextBox = new System.Windows.Forms.ToolStripTextBox();
             this._GameListView = new SAM.Picker.DoubleBufferedListView();
             this._PickerStatusStrip = new System.Windows.Forms.StatusStrip();
             this._PickerStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._DownloadStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._LogoWorker = new System.ComponentModel.BackgroundWorker();
             this._ListWorker = new System.ComponentModel.BackgroundWorker();
-            this._ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this._ToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this._ToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this._FindGamesLabel = new System.Windows.Forms.ToolStripLabel();
-            this._SearchGameTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            _ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            _ToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this._PickerToolStrip.SuspendLayout();
             this._PickerStatusStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // _ToolStripSeparator1
-            // 
-            this._ToolStripSeparator1.Name = "_ToolStripSeparator1";
-            this._ToolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // _ToolStripSeparator2
-            // 
-            this._ToolStripSeparator2.Name = "_ToolStripSeparator2";
-            this._ToolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // _ToolStripSeparator3
-            // 
-            this._ToolStripSeparator3.Name = "_ToolStripSeparator3";
-            this._ToolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // _FindGamesLabel
-            // 
-            this._FindGamesLabel.Name = "_FindGamesLabel";
-            this._FindGamesLabel.Size = new System.Drawing.Size(33, 22);
-            this._FindGamesLabel.Text = "Filter";
-            // 
-            // _SearchGameTextBox
-            // 
-            this._SearchGameTextBox.Name = "_SearchGameTextBox";
-            this._SearchGameTextBox.Size = new System.Drawing.Size(100, 25);
-            this._SearchGameTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnFilterUpdate);
             // 
             // _LogoImageList
             // 
@@ -103,11 +79,12 @@
             this._AddGameTextBox,
             this._AddGameButton,
             _ToolStripSeparator2,
-            this._FilterDropDownButton,
-            this.boxLanguage,
-            this._ToolStripSeparator3,
             this._FindGamesLabel,
-            this._SearchGameTextBox});
+            this._SearchGameTextBox,
+            this.toolStripSeparator1,
+            this._FilterDropDownButton,
+            this._ToolStripSeparator3,
+            this.boxLanguage});
             this._PickerToolStrip.Location = new System.Drawing.Point(0, 0);
             this._PickerToolStrip.Name = "_PickerToolStrip";
             this._PickerToolStrip.Size = new System.Drawing.Size(742, 25);
@@ -123,9 +100,13 @@
             this._RefreshGamesButton.Text = "Refresh Games";
             this._RefreshGamesButton.Click += new System.EventHandler(this.OnRefresh);
             // 
+            // _ToolStripSeparator1
+            // 
+            _ToolStripSeparator1.Name = "_ToolStripSeparator1";
+            _ToolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // _AddGameTextBox
             // 
-            this._AddGameTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this._AddGameTextBox.Name = "_AddGameTextBox";
             this._AddGameTextBox.Size = new System.Drawing.Size(100, 25);
             // 
@@ -137,6 +118,11 @@
             this._AddGameButton.Size = new System.Drawing.Size(83, 22);
             this._AddGameButton.Text = "Add Game";
             this._AddGameButton.Click += new System.EventHandler(this.OnAddGame);
+            // 
+            // _ToolStripSeparator2
+            // 
+            _ToolStripSeparator2.Name = "_ToolStripSeparator2";
+            _ToolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // _FilterDropDownButton
             // 
@@ -158,7 +144,7 @@
             this._FilterGamesMenuItem.CheckOnClick = true;
             this._FilterGamesMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this._FilterGamesMenuItem.Name = "_FilterGamesMenuItem";
-            this._FilterGamesMenuItem.Size = new System.Drawing.Size(142, 22);
+            this._FilterGamesMenuItem.Size = new System.Drawing.Size(180, 22);
             this._FilterGamesMenuItem.Text = "Show &games";
             this._FilterGamesMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
@@ -166,7 +152,7 @@
             // 
             this._FilterDemosMenuItem.CheckOnClick = true;
             this._FilterDemosMenuItem.Name = "_FilterDemosMenuItem";
-            this._FilterDemosMenuItem.Size = new System.Drawing.Size(142, 22);
+            this._FilterDemosMenuItem.Size = new System.Drawing.Size(180, 22);
             this._FilterDemosMenuItem.Text = "Show &demos";
             this._FilterDemosMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
@@ -174,7 +160,7 @@
             // 
             this._FilterModsMenuItem.CheckOnClick = true;
             this._FilterModsMenuItem.Name = "_FilterModsMenuItem";
-            this._FilterModsMenuItem.Size = new System.Drawing.Size(142, 22);
+            this._FilterModsMenuItem.Size = new System.Drawing.Size(180, 22);
             this._FilterModsMenuItem.Text = "Show &mods";
             this._FilterModsMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
@@ -182,7 +168,7 @@
             // 
             this._FilterJunkMenuItem.CheckOnClick = true;
             this._FilterJunkMenuItem.Name = "_FilterJunkMenuItem";
-            this._FilterJunkMenuItem.Size = new System.Drawing.Size(142, 22);
+            this._FilterJunkMenuItem.Size = new System.Drawing.Size(180, 22);
             this._FilterJunkMenuItem.Text = "Show &junk";
             this._FilterJunkMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
@@ -194,6 +180,23 @@
             this.boxLanguage.Name = "boxLanguage";
             this.boxLanguage.Size = new System.Drawing.Size(121, 25);
             this.boxLanguage.Text = "Languages";
+            // 
+            // _ToolStripSeparator3
+            // 
+            this._ToolStripSeparator3.Name = "_ToolStripSeparator3";
+            this._ToolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // _FindGamesLabel
+            // 
+            this._FindGamesLabel.Name = "_FindGamesLabel";
+            this._FindGamesLabel.Size = new System.Drawing.Size(33, 22);
+            this._FindGamesLabel.Text = "Filter";
+            // 
+            // _SearchGameTextBox
+            // 
+            this._SearchGameTextBox.Name = "_SearchGameTextBox";
+            this._SearchGameTextBox.Size = new System.Drawing.Size(100, 25);
+            this._SearchGameTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnFilterUpdate);
             // 
             // _GameListView
             // 
@@ -254,6 +257,11 @@
             this._ListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DoDownloadList);
             this._ListWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.OnDownloadList);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // GamePicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -296,9 +304,8 @@
         private System.Windows.Forms.ToolStripComboBox boxLanguage;
         private System.Windows.Forms.ToolStripTextBox _SearchGameTextBox;
         private System.Windows.Forms.ToolStripLabel _FindGamesLabel;
-        private System.Windows.Forms.ToolStripSeparator _ToolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator _ToolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator _ToolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
