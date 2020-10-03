@@ -55,12 +55,12 @@ namespace SAM.Game
         //private API.Callback<APITypes.UserStatsStored> UserStatsStoredCallback;
         private readonly string _Language;
 
-        private bool _firstLoad;
+        private readonly bool _FirstLoad;
         public Manager(long gameId, API.Client client, string language = null)
         {
             InitializeComponent();
 
-            if(_firstLoad) return;
+            if (_FirstLoad) return;
             _MainTabControl.SelectedTab = _AchievementsTabPage;
             //this.statisticsList.Enabled = this.checkBox1.Checked;
 
@@ -93,7 +93,7 @@ namespace SAM.Game
 
             _IconDownloader.DownloadDataCompleted += OnIconDownload;
 
-            var name = _SteamClient.SteamApps001.GetAppData((uint)_GameId, "name");
+            var name = _SteamClient.SteamApps001.GetAppData((uint) _GameId, "name");
             if (name != null)
             {
                 base.Text += " | " + name;
@@ -111,7 +111,7 @@ namespace SAM.Game
 
             //this.UserStatsStoredCallback = new API.Callback(1102, new API.Callback.CallbackFunction(this.OnUserStatsStored));
             RefreshStats();
-            _firstLoad = true;
+            _FirstLoad = true;
         }
 
         private void AddAchievementIcon(Stats.AchievementInfo info, Image icon)
@@ -869,34 +869,37 @@ namespace SAM.Game
 
         private void Manager_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!exitToTrayToolStripMenuItem.Checked) return;
-            if (e.CloseReason == CloseReason.UserClosing)
+            if (exitToTrayToolStripMenuItem.Checked)
             {
-                e.Cancel = true;
-                WindowState = FormWindowState.Minimized;
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    e.Cancel = true;
+                    WindowState = FormWindowState.Minimized;
+                }
             }
         }
+
         private void Manager_Resize(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
+            if (minimizeToTrayToolStripMenuItem.Checked)
             {
-                if (!minimizeToTrayToolStripMenuItem.Checked) return;
-                MinimizedTray();
+                if (WindowState == FormWindowState.Minimized)
+                {
+                    MinimizedTray();
+                }
             }
-            else if (WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized) 
-                MaximizedFromTray();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            WindowState = FormWindowState.Normal;
             MaximizedFromTray();
+            WindowState = FormWindowState.Normal;
         }
 
         private void showToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Normal;
             MaximizedFromTray();
+            WindowState = FormWindowState.Normal;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -906,20 +909,36 @@ namespace SAM.Game
 
         private void MinimizedTray()
         {
+            Hide();
             ShowInTaskbar = false;
             notifyIcon1.Visible = true;
-            notifyIcon1.BalloonTipText = "Minimized";
-            notifyIcon1.BalloonTipTitle = "Your Application is Running in BackGround";
-            notifyIcon1.ShowBalloonTip(500);
-
         }
         private void MaximizedFromTray()
         {
+            Show();
             ShowInTaskbar = true;
             notifyIcon1.Visible = false;
-            notifyIcon1.BalloonTipText = "Maximized";
-            notifyIcon1.BalloonTipTitle = "Application is Running in Foreground";
-            notifyIcon1.ShowBalloonTip(500);
+        }
+
+        private void toolExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void minimizeToTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!minimizeToTrayToolStripMenuItem.Checked)
+            {
+                exitToTrayToolStripMenuItem.Checked = false;
+            }
+        }
+
+        private void exitToTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (exitToTrayToolStripMenuItem.Checked)
+            {
+                minimizeToTrayToolStripMenuItem.Checked = true;
+            }
         }
     }
 }

@@ -33,6 +33,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Manager));
             this._MainToolStrip = new System.Windows.Forms.ToolStrip();
             this._StoreButton = new System.Windows.Forms.ToolStripButton();
+            this.toolExit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._ReloadButton = new System.Windows.Forms.ToolStripButton();
             this._ResetButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
@@ -80,6 +82,8 @@
             // 
             this._MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._StoreButton,
+            this.toolExit,
+            this.toolStripSeparator1,
             this._ReloadButton,
             _ToolStripSeparator1,
             this._ResetButton,
@@ -100,6 +104,22 @@
             this._StoreButton.Text = "Commit Changes";
             this._StoreButton.ToolTipText = "Store achievements and statistics for active game.";
             this._StoreButton.Click += new System.EventHandler(this.OnStore);
+            // 
+            // toolExit
+            // 
+            this.toolExit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolExit.Image = ((System.Drawing.Image)(resources.GetObject("toolExit.Image")));
+            this.toolExit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolExit.Name = "toolExit";
+            this.toolExit.Size = new System.Drawing.Size(30, 22);
+            this.toolExit.Text = "Exit";
+            this.toolExit.ToolTipText = "Exit";
+            this.toolExit.Click += new System.EventHandler(this.toolExit_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // _ReloadButton
             // 
@@ -136,18 +156,22 @@
             // minimizeToTrayToolStripMenuItem
             // 
             this.minimizeToTrayToolStripMenuItem.Checked = true;
+            this.minimizeToTrayToolStripMenuItem.CheckOnClick = true;
             this.minimizeToTrayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.minimizeToTrayToolStripMenuItem.Name = "minimizeToTrayToolStripMenuItem";
             this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.minimizeToTrayToolStripMenuItem.Text = "Minimize to tray";
+            this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.minimizeToTrayToolStripMenuItem_Click);
             // 
             // exitToTrayToolStripMenuItem
             // 
             this.exitToTrayToolStripMenuItem.Checked = true;
+            this.exitToTrayToolStripMenuItem.CheckOnClick = true;
             this.exitToTrayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.exitToTrayToolStripMenuItem.Name = "exitToTrayToolStripMenuItem";
             this.exitToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToTrayToolStripMenuItem.Text = "Exit to tray";
+            this.exitToTrayToolStripMenuItem.Click += new System.EventHandler(this.exitToTrayToolStripMenuItem_Click);
             // 
             // _AchievementImageList
             // 
@@ -303,7 +327,7 @@
             this._StatisticsTabPage.Location = new System.Drawing.Point(4, 22);
             this._StatisticsTabPage.Name = "_StatisticsTabPage";
             this._StatisticsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this._StatisticsTabPage.Size = new System.Drawing.Size(608, 308);
+            this._StatisticsTabPage.Size = new System.Drawing.Size(600, 377);
             this._StatisticsTabPage.TabIndex = 1;
             this._StatisticsTabPage.Text = "Statistics";
             this._StatisticsTabPage.UseVisualStyleBackColor = true;
@@ -340,6 +364,7 @@
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon";
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
@@ -428,6 +453,8 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolExit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
