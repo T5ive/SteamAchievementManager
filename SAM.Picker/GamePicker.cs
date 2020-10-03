@@ -242,6 +242,7 @@ namespace SAM.Picker
 
             var appDir = Path.Combine(CacheDir, info.Id.ToString("D"));
             var imgPath = Path.Combine(appDir, info.Logo + ".jpg");
+
             if (File.Exists(imgPath))
             {
                 e.Result = new LogoInfo(info.Id, new Bitmap(File.OpenRead(imgPath)));
