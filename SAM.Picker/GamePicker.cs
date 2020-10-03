@@ -44,7 +44,6 @@ namespace SAM.Picker
 
         private readonly Dictionary<uint, GameInfo> _Games;
         private readonly List<GameInfo> _FilteredGames;
-        private int _SelectedGameIndex;
 
         private readonly List<string> _LogosAttempted;
         private readonly ConcurrentQueue<GameInfo> _LogoQueue;
@@ -58,7 +57,6 @@ namespace SAM.Picker
         {
             _Games = new Dictionary<uint, GameInfo>();
             _FilteredGames = new List<GameInfo>();
-            _SelectedGameIndex = -1;
             _LogosAttempted = new List<string>();
             _LogoQueue = new ConcurrentQueue<GameInfo>();
 
@@ -138,10 +136,14 @@ namespace SAM.Picker
 
         private void RefreshGames()
         {
-            _SelectedGameIndex = -1;
             _FilteredGames.Clear();
             foreach (var info in _Games.Values.OrderBy(gi => gi.Name))
             {
+                if (_SearchGameTextBox.Text.Length != 0 &&
+                    !info.Name.ToLowerInvariant().Contains(_SearchGameTextBox.Text.ToLowerInvariant()))
+                {
+                    continue;
+                }
                 if (info.Type == "normal" && _FilterGamesMenuItem.Checked == false)
                 {
                     continue;
@@ -238,8 +240,8 @@ namespace SAM.Picker
         private void DoDownloadLogo(object sender, DoWorkEventArgs e)
         {
             var info = (GameInfo)e.Argument;
-            Directory.CreateDirectory(CacheDir);
 
+            Directory.CreateDirectory(CacheDir);
             var appDir = Path.Combine(CacheDir, info.Id.ToString("D"));
             var imgPath = Path.Combine(appDir, info.Logo + ".jpg");
 
@@ -381,14 +383,10 @@ namespace SAM.Picker
             _CallbackTimer.Enabled = true;
         }
 
-        private void OnSelectGame(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            _SelectedGameIndex = e.ItemIndex;
-        }
-
         private void OnActivateGame(object sender, EventArgs e)
         {
-            var index = _SelectedGameIndex;
+            var focusedItem = (sender as DoubleBufferedListView)?.FocusedItem;
+            var index = focusedItem?.Index ?? -1;
             if (index < 0 || index >= _FilteredGames.Count)
             {
                 return;
@@ -459,6 +457,7 @@ namespace SAM.Picker
         private void OnFilterUpdate(object sender, EventArgs e)
         {
             RefreshGames();
+            _SearchGameTextBox.Focus(); // Compatibility with _GameListView SearchForVirtualItemEventHandler (otherwise _SearchGameTextBox loose focus on KeyUp)
         }
     }
 }

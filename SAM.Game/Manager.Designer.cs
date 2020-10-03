@@ -55,6 +55,12 @@
             this._LockAllButton = new System.Windows.Forms.ToolStripButton();
             this._InvertAllButton = new System.Windows.Forms.ToolStripButton();
             this._UnlockAllButton = new System.Windows.Forms.ToolStripButton();
+            this._DisplayLabel = new System.Windows.Forms.ToolStripLabel();
+            this._DisplayLockedOnlyButton = new System.Windows.Forms.ToolStripButton();
+            this._DisplayUnlockedOnlyButton = new System.Windows.Forms.ToolStripButton();
+            this._ToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this._MatchingStringLabel = new System.Windows.Forms.ToolStripLabel();
+            this._MatchingStringTextBox = new System.Windows.Forms.ToolStripTextBox();
             this._StatisticsTabPage = new System.Windows.Forms.TabPage();
             this._EnableStatsEditingCheckBox = new System.Windows.Forms.CheckBox();
             this._StatisticsDataGridView = new System.Windows.Forms.DataGridView();
@@ -62,6 +68,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             _ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._MainToolStrip.SuspendLayout();
             this._MainStatusStrip.SuspendLayout();
@@ -80,13 +87,14 @@
             // 
             // _MainToolStrip
             // 
+            this._MainToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this._MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._StoreButton,
             this.toolExit,
             this.toolStripSeparator1,
             this._ReloadButton,
-            _ToolStripSeparator1,
             this._ResetButton,
+            this.toolStripSeparator2,
             this.toolStripDropDownButton1});
             this._MainToolStrip.Location = new System.Drawing.Point(0, 0);
             this._MainToolStrip.Name = "_MainToolStrip";
@@ -159,7 +167,7 @@
             this.minimizeToTrayToolStripMenuItem.CheckOnClick = true;
             this.minimizeToTrayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.minimizeToTrayToolStripMenuItem.Name = "minimizeToTrayToolStripMenuItem";
-            this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.minimizeToTrayToolStripMenuItem.Text = "Minimize to tray";
             this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.minimizeToTrayToolStripMenuItem_Click);
             // 
@@ -169,7 +177,7 @@
             this.exitToTrayToolStripMenuItem.CheckOnClick = true;
             this.exitToTrayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.exitToTrayToolStripMenuItem.Name = "exitToTrayToolStripMenuItem";
-            this.exitToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToTrayToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.exitToTrayToolStripMenuItem.Text = "Exit to tray";
             this.exitToTrayToolStripMenuItem.Click += new System.EventHandler(this.exitToTrayToolStripMenuItem_Click);
             // 
@@ -278,10 +286,18 @@
             // 
             // _AchievementsToolStrip
             // 
+            this._AchievementsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this._AchievementsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._LockAllButton,
             this._InvertAllButton,
-            this._UnlockAllButton});
+            this._UnlockAllButton,
+            _ToolStripSeparator1,
+            this._DisplayLabel,
+            this._DisplayLockedOnlyButton,
+            this._DisplayUnlockedOnlyButton,
+            this._ToolStripSeparator2,
+            this._MatchingStringLabel,
+            this._MatchingStringTextBox});
             this._AchievementsToolStrip.Location = new System.Drawing.Point(3, 3);
             this._AchievementsToolStrip.Name = "_AchievementsToolStrip";
             this._AchievementsToolStrip.Size = new System.Drawing.Size(594, 25);
@@ -319,6 +335,55 @@
             this._UnlockAllButton.Text = "Unlock All";
             this._UnlockAllButton.ToolTipText = "Unlock all achievements.";
             this._UnlockAllButton.Click += new System.EventHandler(this.OnUnlockAll);
+            // 
+            // _DisplayLabel
+            // 
+            this._DisplayLabel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this._DisplayLabel.Name = "_DisplayLabel";
+            this._DisplayLabel.Size = new System.Drawing.Size(67, 22);
+            this._DisplayLabel.Text = "Show Only:";
+            // 
+            // _DisplayLockedOnlyButton
+            // 
+            this._DisplayLockedOnlyButton.BackColor = System.Drawing.Color.Transparent;
+            this._DisplayLockedOnlyButton.CheckOnClick = true;
+            this._DisplayLockedOnlyButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this._DisplayLockedOnlyButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this._DisplayLockedOnlyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._DisplayLockedOnlyButton.Name = "_DisplayLockedOnlyButton";
+            this._DisplayLockedOnlyButton.Size = new System.Drawing.Size(49, 22);
+            this._DisplayLockedOnlyButton.Text = "Locked";
+            this._DisplayLockedOnlyButton.Click += new System.EventHandler(this._DisplayLockedOnlyButton_Click);
+            // 
+            // _DisplayUnlockedOnlyButton
+            // 
+            this._DisplayUnlockedOnlyButton.CheckOnClick = true;
+            this._DisplayUnlockedOnlyButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this._DisplayUnlockedOnlyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._DisplayUnlockedOnlyButton.Name = "_DisplayUnlockedOnlyButton";
+            this._DisplayUnlockedOnlyButton.Size = new System.Drawing.Size(61, 22);
+            this._DisplayUnlockedOnlyButton.Text = "Unlocked";
+            this._DisplayUnlockedOnlyButton.Click += new System.EventHandler(this._DisplayUnlockedOnlyButton_Click);
+            // 
+            // _ToolStripSeparator2
+            // 
+            this._ToolStripSeparator2.Name = "_ToolStripSeparator2";
+            this._ToolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // _MatchingStringLabel
+            // 
+            this._MatchingStringLabel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this._MatchingStringLabel.Name = "_MatchingStringLabel";
+            this._MatchingStringLabel.Size = new System.Drawing.Size(33, 22);
+            this._MatchingStringLabel.Text = "Filter";
+            // 
+            // _MatchingStringTextBox
+            // 
+            this._MatchingStringTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this._MatchingStringTextBox.Name = "_MatchingStringTextBox";
+            this._MatchingStringTextBox.Size = new System.Drawing.Size(100, 25);
+            this._MatchingStringTextBox.ToolTipText = "Type at least 3 characters that must appear in the name or description";
+            this._MatchingStringTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this._MatchingStringTextBox_KeyUp);
             // 
             // _StatisticsTabPage
             // 
@@ -390,6 +455,11 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // Manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -455,6 +525,13 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolExit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel _DisplayLabel;
+        private System.Windows.Forms.ToolStripButton _DisplayUnlockedOnlyButton;
+        private System.Windows.Forms.ToolStripButton _DisplayLockedOnlyButton;
+        private System.Windows.Forms.ToolStripLabel _MatchingStringLabel;
+        private System.Windows.Forms.ToolStripTextBox _MatchingStringTextBox;
+        private System.Windows.Forms.ToolStripSeparator _ToolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 
