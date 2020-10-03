@@ -38,6 +38,8 @@ namespace SAM.Picker
 {
     internal partial class GamePicker : Form
     {
+        private static readonly string VersionAgnosticLocalAppData = Directory.GetParent(Application.LocalUserAppDataPath).ToString();
+        private static readonly string CacheDir = Path.Combine(VersionAgnosticLocalAppData, "cache");
         private readonly API.Client _SteamClient;
 
         private readonly Dictionary<uint, GameInfo> _Games;
@@ -236,6 +238,16 @@ namespace SAM.Picker
         private void DoDownloadLogo(object sender, DoWorkEventArgs e)
         {
             var info = (GameInfo)e.Argument;
+            Directory.CreateDirectory(CacheDir);
+
+            var appDir = Path.Combine(CacheDir, info.Id.ToString("D"));
+            var imgPath = Path.Combine(appDir, info.Logo + ".jpg");
+            if (File.Exists(imgPath))
+            {
+                e.Result = new LogoInfo(info.Id, new Bitmap(File.OpenRead(imgPath)));
+                return;
+            }
+
             var logoPath = string.Format(
                 CultureInfo.InvariantCulture,
                 "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}.jpg",
@@ -249,6 +261,8 @@ namespace SAM.Picker
                     using (var stream = new MemoryStream(data, false))
                     {
                         var bitmap = new Bitmap(stream);
+                        Directory.CreateDirectory(appDir);
+                        bitmap.Save(imgPath);
                         e.Result = new LogoInfo(info.Id, bitmap);
                     }
                 }
