@@ -56,9 +56,18 @@ namespace SAM.Game
         private readonly string _Language;
 
         private readonly bool _FirstLoad;
+        private string logoDirLocal;
+
         public Manager(long gameId, API.Client client, string language = null)
         {
             InitializeComponent();
+
+            logoDirLocal = string.Format(
+                CultureInfo.InvariantCulture,
+                "{0}/logocache/{1}",
+                Path.GetDirectoryName(Application.ExecutablePath),
+                gameId);
+            System.IO.Directory.CreateDirectory(logoDirLocal);
 
             if (_FirstLoad) return;
             _MainTabControl.SelectedTab = _AchievementsTabPage;
@@ -133,23 +142,21 @@ namespace SAM.Game
             {
                 var info = e.UserState as Stats.AchievementInfo;
 
-                Bitmap bitmap;
+                var logoPathLocal = logoDirLocal + "/" + (info.IsAchieved == true ? info.IconNormal : info.IconLocked);
 
                 try
                 {
-                    using (var stream = new MemoryStream())
+                    using (var stream = File.OpenWrite(logoPathLocal))
                     {
                         stream.Write(e.Result, 0, e.Result.Length);
-                        bitmap = new Bitmap(stream);
                     }
-                }
-                catch (Exception)
-                {
-                    bitmap = null;
-                }
 
-                AddAchievementIcon(info, bitmap);
-                _AchievementListView.Update();
+                    LoadAchievementIconLocally(info);
+                }
+                catch
+                {
+                   //
+                }               
             }
 
             DownloadNextIcon();
@@ -480,14 +487,7 @@ namespace SAM.Game
 
                 info.Item = item;
 
-                if (item.Text.StartsWith("#", StringComparison.InvariantCulture))
-                {
-                    item.Text = info.Id;
-                }
-                else
-                {
-                    item.SubItems.Add(info.Description);
-                }
+                item.SubItems.Add(info.Description);
 
                 info.ImageIndex = 0;
 
@@ -574,6 +574,8 @@ namespace SAM.Game
             }
             else
             {
+                if (LoadAchievementIconLocally(info)) return;
+
                 _IconQueue.Add(info);
 
                 if (startDownload)
@@ -581,6 +583,24 @@ namespace SAM.Game
                     DownloadNextIcon();
                 }
             }
+        }
+
+        private bool LoadAchievementIconLocally(Stats.AchievementInfo info)
+        {
+            var logoPathLocal = logoDirLocal + "/" + (info.IsAchieved == true ? info.IconNormal : info.IconLocked);
+
+            if (File.Exists(logoPathLocal))
+            {
+                var stream = File.OpenRead(logoPathLocal);
+                Bitmap bitmap = new Bitmap(stream);
+
+                this.AddAchievementIcon(info, bitmap);
+                this._AchievementListView.Update();
+
+                return true;
+            }
+
+            return false;
         }
 
         private int StoreAchievements()
